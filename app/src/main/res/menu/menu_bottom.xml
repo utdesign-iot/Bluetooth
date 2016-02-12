@@ -1,0 +1,36 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.example.todd.baseui.MainActivity">
+    <item
+        android:id="@+id/action_home"
+        android:title="Home"
+        android:orderInCategory="100"
+        android:layout_alignParentLeft="true"
+        android:icon="@drawable/ic_home_white"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/action_notification"
+        android:orderInCategory="200"
+        android:icon="@drawable/ic_notification_white"
+        android:title="Notification"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/action_location"
+        android:orderInCategory="300"
+        android:icon="@drawable/ic_room_white"
+        android:title="Location"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/action_apps"
+        android:orderInCategory="400"
+        android:icon="@drawable/ic_apps_white"
+        android:title="Apps"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/action_person"
+        android:orderInCategory="500"
+        android:icon="@drawable/ic_person_white"
+        android:title="Person"
+        app:showAsAction="always" />
+</menu>

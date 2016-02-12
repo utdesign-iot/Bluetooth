@@ -1,0 +1,21 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.example.todd.baseui.MainActivity">
+    <item
+        android:id="@+id/action_search"
+        android:title="Search"
+        android:icon="@android:drawable/ic_menu_search"
+        app:showAsAction="always|collapseActionView"
+        app:actionViewClass="android.support.v7.widget.SearchView" />
+    <item
+        android:id="@+id/action_camera"
+        android:icon="@drawable/ic_camera_white"
+        android:title="Camera"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/action_microphone"
+        android:icon="@drawable/ic_microphone_white"
+        android:title="Microphone"
+        app:showAsAction="always" />
+</menu>
