@@ -1,4 +1,18 @@
 <resources>
-    <string name="app_name">BaseUI</string>
-    <string name="action_settings">Settings</string>
+    <string name="app_name">IoT Browser</string>
+    <string name="second_activity_text">Second Activity</string>
+    <string-array name="spinner_array">
+        <item>Near By</item>
+        <item>Home</item>
+        <item>Location 1</item>
+        <item>Location 2</item>
+        <item>Location 3</item>
+        <item>Location 4</item>
+        <item>Location 5</item>
+        <item>Location 6</item>
+        <item>Location 7</item>
+        <item>Location 8</item>
+        <item>Location 9</item>
+        <item>Location 10</item>
+    </string-array>
 </resources>

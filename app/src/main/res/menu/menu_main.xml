@@ -1,21 +1,28 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.example.todd.baseui.MainActivity">
-    <item
-        android:id="@+id/action_search"
+      xmlns:app="http://schemas.android.com/apk/res-auto"
+      xmlns:tools="http://schemas.android.com/tools"
+      tools:context=".MainActivity">
+
+    <item android:id="@+id/action_search"
         android:title="Search"
-        android:icon="@android:drawable/ic_menu_search"
-        app:showAsAction="always|collapseActionView"
-        app:actionViewClass="android.support.v7.widget.SearchView" />
-    <item
-        android:id="@+id/action_camera"
-        android:icon="@drawable/ic_camera_white"
+        android:icon="@drawable/ic_search_white"
+        app:actionViewClass="android.support.v7.widget.SearchView"
+        app:showAsAction="always|collapseActionView" />
+
+    <item android:id="@+id/action_camera"
         android:title="Camera"
+        android:icon="@drawable/ic_camera_white"
         app:showAsAction="always" />
-    <item
-        android:id="@+id/action_microphone"
-        android:icon="@drawable/ic_microphone_white"
-        android:title="Microphone"
-        app:showAsAction="always" />
+
+    <item android:id="@+id/action_settings"
+          android:title="Settings"
+          app:showAsAction="never"/>
+
+    <item android:id="@+id/action_edit_urls"
+        android:title="Edit URLs"
+        app:showAsAction="never" />
+
+    <item android:id="@+id/action_about"
+        android:title="About"
+        app:showAsAction="never"/>
 </menu>
