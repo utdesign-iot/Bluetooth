@@ -1,6 +1,5 @@
 package com.example.todd.baseui;
 
-import android.graphics.drawable.Drawable;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentManager;
 import android.os.Bundle;
