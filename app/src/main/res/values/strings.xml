@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">IoT Browser</string>
     <string name="second_activity_text">Second Activity</string>
+    <string name="Sample_txt">Sample text</string>
+    <string name="subheader_txt">description</string>
     <string-array name="spinner_array">
         <item>Near By</item>
         <item>Home</item>
