@@ -32,8 +32,8 @@ repositories {
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     testCompile 'junit:junit:4.12'
-    compile 'com.android.volley:volley@aar'
-    compile 'org.uribeacon:uribeacon-library-release@aar'
     compile 'com.android.support:appcompat-v7:23.1.1'
     compile 'com.android.support:design:23.1.1'
+    compile project(':uribeacon-library-release')
+    compile project(':volley')
 }
