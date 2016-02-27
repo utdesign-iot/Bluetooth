@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <group>
+    <group android:checkableBehavior="single">
         <item android:title="Account">
             <menu>
                 <item
@@ -24,45 +24,47 @@
         </item>
     </group>
 
-    <item android:title="Locations">
-        <menu>
-            <item
-                android:icon="@drawable/ic_place"
-                android:title="Near By" />
-            <item
-                android:icon="@drawable/ic_home"
-                android:title="Home" />
-            <item
-                android:icon="@drawable/ic_place"
-                android:title="Location 1" />
-            <item
-                android:icon="@drawable/ic_place"
-                android:title="Location 2" />
-            <item
-                android:icon="@drawable/ic_place"
-                android:title="Location 3" />
-            <item
-                android:icon="@drawable/ic_place"
-                android:title="Location 4" />
-            <item
-                android:icon="@drawable/ic_place"
-                android:title="Location 5" />
-            <item
-                android:icon="@drawable/ic_place"
-                android:title="Location 6" />
-            <item
-                android:icon="@drawable/ic_place"
-                android:title="Location 7" />
-            <item
-                android:icon="@drawable/ic_place"
-                android:title="Location 8" />
-            <item
-                android:icon="@drawable/ic_place"
-                android:title="Location 9" />
-            <item
-                android:icon="@drawable/ic_place"
-                android:title="Location 10" />
-        </menu>
-    </item>
+    <group android:checkableBehavior="single" >
+        <item android:title="Locations">
+            <menu>
+                <item
+                    android:icon="@drawable/ic_place"
+                    android:title="Near By" />
+                <item
+                    android:icon="@drawable/ic_home"
+                    android:title="Home" />
+                <item
+                    android:icon="@drawable/ic_place"
+                    android:title="Location 1" />
+                <item
+                    android:icon="@drawable/ic_place"
+                    android:title="Location 2" />
+                <item
+                    android:icon="@drawable/ic_place"
+                    android:title="Location 3" />
+                <item
+                    android:icon="@drawable/ic_place"
+                    android:title="Location 4" />
+                <item
+                    android:icon="@drawable/ic_place"
+                    android:title="Location 5" />
+                <item
+                    android:icon="@drawable/ic_place"
+                    android:title="Location 6" />
+                <item
+                    android:icon="@drawable/ic_place"
+                    android:title="Location 7" />
+                <item
+                    android:icon="@drawable/ic_place"
+                    android:title="Location 8" />
+                <item
+                    android:icon="@drawable/ic_place"
+                    android:title="Location 9" />
+                <item
+                    android:icon="@drawable/ic_place"
+                    android:title="Location 10" />
+            </menu>
+        </item>
+    </group>
 
 </menu>

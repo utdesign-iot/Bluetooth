@@ -1,5 +1,6 @@
 package com.example.todd.baseui;
 
+import android.content.Intent;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentManager;
 import android.os.Bundle;
@@ -47,8 +48,10 @@ public class MainActivity extends AppCompatActivity {
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(MenuItem menuItem) {
-                //menuItem.setChecked(true);
+                menuItem.setCheckable(true);
+                menuItem.setChecked(true);
                 mDrawerLayout.closeDrawers();
+                mToolbar.setTitle(menuItem.getTitle());
                 Toast.makeText(MainActivity.this, menuItem.getTitle(), Toast.LENGTH_LONG).show();
                 return true;
             }
@@ -95,7 +98,18 @@ public class MainActivity extends AppCompatActivity {
             case android.R.id.home:
                 mDrawerLayout.openDrawer(GravityCompat.START);
                 return true;
+            case R.id.action_camera:
+                Toast.makeText(MainActivity.this, item.getTitle(), Toast.LENGTH_LONG).show();
+                return true;
             case R.id.action_settings:
+                Toast.makeText(MainActivity.this, item.getTitle(), Toast.LENGTH_LONG).show();
+                return true;
+            case R.id.action_edit_urls:
+                Toast.makeText(MainActivity.this, item.getTitle(), Toast.LENGTH_LONG).show();
+                return true;
+            case R.id.action_about:
+                //Toast.makeText(MainActivity.this, item.getTitle(), Toast.LENGTH_LONG).show();
+                startActivity(new Intent(this, AboutActivity.class));
                 return true;
         }
 
