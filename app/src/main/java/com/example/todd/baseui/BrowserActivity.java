@@ -5,9 +5,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
-/**
- * Created by Todd on 2/27/2016.
- */
 public class BrowserActivity extends AppCompatActivity {
 
     @Override
