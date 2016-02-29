@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 public class ActionsListAdapter extends ArrayAdapter<String>{
@@ -36,6 +37,11 @@ public class ActionsListAdapter extends ArrayAdapter<String>{
 
         actionView.setText(actions[position]);
         iconView.setImageResource(icons[position]);
+
+//        LinearLayout layout = (LinearLayout) view.findViewById(R.id.action_icon_list_layout);
+//        ImageView imageView = new ImageView(getContext());
+//        imageView.setImageResource(R.mipmap.ic_person_pin);
+//        layout.addView(imageView);
 
         return view;
     }
