@@ -1,6 +1,7 @@
 package com.example.todd.baseui;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,6 +32,8 @@ public class ActionsListAdapter extends ArrayAdapter<String>{
             layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             view = layoutInflater.inflate(R.layout.actions_row_model, null);
         }
+
+        if (position % 2 == 1) { view.setBackgroundColor(Color.rgb(237, 237, 237)); }
 
         TextView actionView = (TextView) view.findViewById(R.id.action_title);
         ImageView iconView = (ImageView) view.findViewById(R.id.action_icon_list);

@@ -1,6 +1,7 @@
 package com.example.todd.baseui;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,6 +37,8 @@ public class DevicesListAdapter extends ArrayAdapter<String>{
             layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = layoutInflater.inflate(R.layout.devices_row_model, null);
         }
+
+        if (position % 2 == 1) { convertView.setBackgroundColor(Color.rgb(237,237,237)); }
 
         TextView device = (TextView) convertView.findViewById(R.id.header_txt);
         ImageView image = (ImageView ) convertView.findViewById(R.id.device_icon);

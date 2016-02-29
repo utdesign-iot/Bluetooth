@@ -4,4 +4,5 @@
     <color name="orange_dark">#c96012</color>
     <color name="green_light">#40a12e</color>
     <color name="orange_light">#fd812e</color>
+    <color nane="alt_row">#ededed</color>
 </resources>
