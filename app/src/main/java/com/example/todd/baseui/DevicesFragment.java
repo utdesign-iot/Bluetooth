@@ -38,9 +38,9 @@ public class DevicesFragment extends Fragment {
                 container, false);
         listView = (ListView) rootView.findViewById(R.id.list);
 
-        ImageListAdapter imgListAdapter =
-                new ImageListAdapter(getActivity(), deviceNames, imageIds, descriptions);
-        listView.setAdapter(imgListAdapter);
+        DevicesListAdapter devicesListAdapter =
+                new DevicesListAdapter(getActivity(), deviceNames, imageIds, descriptions);
+        listView.setAdapter(devicesListAdapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
