@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -41,8 +42,10 @@ public class ActionsFragment extends Fragment {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast toast = Toast.makeText(getActivity(), actions[position], Toast.LENGTH_SHORT);
-                toast.show();
+                //Toast toast = Toast.makeText(getActivity(), actions[position], Toast.LENGTH_SHORT);
+                //toast.show();
+                CheckBox checkBox = (CheckBox) view.findViewById(R.id.action_checkbox);
+                checkBox.setChecked(!checkBox.isChecked());
             }
         });
 

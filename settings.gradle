@@ -1,1 +1,1 @@
-include ':app', ':libs', ':uribeacon-library-release', ':volley'
+include ':app', ':uribeacon-library-release', ':volley', ':libs'
