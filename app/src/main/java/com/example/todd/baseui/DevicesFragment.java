@@ -6,15 +6,13 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Adapter;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 
 public class DevicesFragment extends Fragment {
     public final static String URL = "http://ecs.utdallas.edu";
     ListView listView;
+    DevicesListAdapter devicesListAdapter;
     String[] deviceNames = {
             "Humpus Wumpus",
             "Cool Guy",
@@ -30,6 +28,12 @@ public class DevicesFragment extends Fragment {
             R.drawable.rad_icon,
             R.drawable.chrome_icon};
 
+
+    public DevicesListAdapter getDevicesListAdapter()
+    {
+        return devicesListAdapter;
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater,
                              ViewGroup container,
@@ -37,21 +41,20 @@ public class DevicesFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.devices_tab,
                 container, false);
         listView = (ListView) rootView.findViewById(R.id.list);
-
-        DevicesListAdapter devicesListAdapter =
+        devicesListAdapter =
                 new DevicesListAdapter(getActivity(), deviceNames, imageIds, descriptions);
         listView.setAdapter(devicesListAdapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                //Toast toast = Toast.makeText(getActivity(), deviceNames[position], Toast.LENGTH_SHORT);
-                //toast.show();
                 Intent intent = new Intent(getContext(), BrowserActivity.class);
                 intent.putExtra(URL, descriptions[position]);
                 startActivity(intent);
             }
         });
 
+
         return rootView;
     }
+
 }

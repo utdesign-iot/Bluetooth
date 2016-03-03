@@ -10,14 +10,17 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.GravityCompat;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.support.v4.view.ViewPager;
+import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -30,6 +33,11 @@ public class MainActivity extends AppCompatActivity {
     private ViewPager mViewPager;
     private String[] spinnerArray;
     private ActionBar actionBar;
+    private SearchView searchView;
+    private DevicesFragment devicesFragment;
+    private ActionsFragment actionsFragment;
+    private AlertsFragment alertsFragment;
+    private int activeTabIndx;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,20 +79,86 @@ public class MainActivity extends AppCompatActivity {
         });
 
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(new DevicesFragment(), "Devices");
-        adapter.addFragment(new ActionsFragment(), "Actions");
-        adapter.addFragment(new AlertsFragment(), "Alerts");
+
+        devicesFragment = new DevicesFragment();
+        actionsFragment = new ActionsFragment();
+        alertsFragment = new AlertsFragment();
+
+        adapter.addFragment(devicesFragment, "Devices");
+        adapter.addFragment(actionsFragment, "Actions");
+        adapter.addFragment(alertsFragment, "Alerts");
         mViewPager = (ViewPager)findViewById(R.id.viewpager);
         mViewPager.setAdapter(adapter);
         mTabLayout = (TabLayout)findViewById(R.id.tablayout);
         mTabLayout.setupWithViewPager(mViewPager);
+
+        mTabLayout.setOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager) {
+            // this anonymous class doesn't get called until after onCreateOptionsMenu()
+            // Thus, searchView is already initialized.
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                super.onTabSelected(tab);
+                switch(tab.getPosition())
+                {
+                    case 0:
+                        searchView.setQueryHint("Search Devices...");
+                        break;
+
+                    case 1:
+                        searchView.setQueryHint("Search Actions...");
+                        break;
+
+                    case 2:
+                        searchView.setQueryHint("Search Alerts...");
+                        break;
+                }
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
+
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
+        MenuItem menuItem = menu.findItem(R.id.action_search);
+
+        searchView = (SearchView) MenuItemCompat.getActionView(menuItem);
+        //since we start highlighted at item 0
+        searchView.setQueryHint("Search Devices...");
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                //search every fragment for the text entered
+                // TODO: find a more efficient way to search.
+                // maybe search only active tabs, and make sure to filter text upon switching tabs.
+                // maybe just use multiple threads
+                filterText(devicesFragment.getDevicesListAdapter(), newText);
+                filterText(actionsFragment.getActionsListAdapter(), newText);
+                return false;
+            }
+        });
         return true;
+    }
+
+    private void filterText(ArrayAdapter<String> adapter, String newText)
+    {
+        adapter.getFilter().filter(newText);
     }
 
     @Override
