@@ -9,10 +9,15 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import java.util.ArrayList;
+
+import listadapters.DevicesAdapter;
+import listitems.Device;
+
 public class DevicesFragment extends Fragment {
     public final static String URL = "http://ecs.utdallas.edu";
     ListView listView;
-    DevicesListAdapter devicesListAdapter;
+    DevicesAdapter devicesAdapter;
     String[] deviceNames = {
             "Humpus Wumpus",
             "Cool Guy",
@@ -28,10 +33,26 @@ public class DevicesFragment extends Fragment {
             R.drawable.rad_icon,
             R.drawable.chrome_icon};
 
+    ArrayList<Device> devices;
 
-    public DevicesListAdapter getDevicesListAdapter()
-    {
-        return devicesListAdapter;
+    public DevicesFragment() {
+        devices = new ArrayList<>(deviceNames.length);
+        for(int i = 0; i < deviceNames.length; i++) {
+            devices.add(new Device(deviceNames[i], imageIds[i], descriptions[i]));
+        }
+
+    }
+
+    public DevicesAdapter getDevicesAdapter() {
+        // this is to ensure, whenever the devices tab gets closed
+        // (because the user is 2 tabs away, thus, this tab doesn't need to be opened and is closed)
+        // the devicesadapter does not get cleared.
+        // however, if the devicesadapter doesn't exist yet, this will create a new one.
+        if(devicesAdapter == null)
+        {
+            devicesAdapter = new DevicesAdapter(getActivity(), devices);
+        }
+        return devicesAdapter;
     }
 
     @Override
@@ -41,9 +62,9 @@ public class DevicesFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.devices_tab,
                 container, false);
         listView = (ListView) rootView.findViewById(R.id.list);
-        devicesListAdapter =
-                new DevicesListAdapter(getActivity(), deviceNames, imageIds, descriptions);
-        listView.setAdapter(devicesListAdapter);
+
+        devicesAdapter = getDevicesAdapter();
+        listView.setAdapter(devicesAdapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {

@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
     private DevicesFragment devicesFragment;
     private ActionsFragment actionsFragment;
     private AlertsFragment alertsFragment;
-    private int activeTabIndx;
+    private int activeTab;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -148,17 +148,13 @@ public class MainActivity extends AppCompatActivity {
                 // TODO: find a more efficient way to search.
                 // maybe search only active tabs, and make sure to filter text upon switching tabs.
                 // maybe just use multiple threads
-                filterText(devicesFragment.getDevicesListAdapter(), newText);
-                filterText(actionsFragment.getActionsListAdapter(), newText);
-                return false;
+
+                devicesFragment.getDevicesAdapter().getFilter().filter(newText);
+                actionsFragment.getActionsAdapter().getFilter().filter(newText);
+                return true;
             }
         });
         return true;
-    }
-
-    private void filterText(ArrayAdapter<String> adapter, String newText)
-    {
-        adapter.getFilter().filter(newText);
     }
 
     @Override
