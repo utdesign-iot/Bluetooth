@@ -13,7 +13,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.example.todd.baseui.R;
+import com.utdesign.iot.baseui.R;
 
 import java.util.ArrayList;
 

@@ -1,4 +1,4 @@
-package com.example.todd.baseui;
+package activities;
 
 import android.content.Intent;
 import android.support.design.widget.NavigationView;
@@ -20,8 +20,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.support.v4.view.ViewPager;
-import android.widget.ArrayAdapter;
 import android.widget.Toast;
+
+import fragments.ActionsFragment;
+import fragments.DevicesFragment;
+import com.utdesign.iot.baseui.R;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,13 +34,10 @@ public class MainActivity extends AppCompatActivity {
     private TabLayout mTabLayout;
     private DrawerLayout mDrawerLayout;
     private ViewPager mViewPager;
-    private String[] spinnerArray;
     private ActionBar actionBar;
     private SearchView searchView;
     private DevicesFragment devicesFragment;
     private ActionsFragment actionsFragment;
-    private AlertsFragment alertsFragment;
-    private int activeTab;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,9 +59,11 @@ public class MainActivity extends AppCompatActivity {
                 menuItem.setCheckable(true);
                 menuItem.setChecked(true);
                 mDrawerLayout.closeDrawers();
-                mToolbar.setTitle(menuItem.getTitle());
-                Toast.makeText(MainActivity.this, menuItem.getTitle(), Toast.LENGTH_LONG).show();
-                return true;
+                if (menuItem.getOrder() == 1) {
+                    mToolbar.setTitle(menuItem.getTitle());
+                } else { mToolbar.setTitle(getTitle()); }
+                Toast.makeText(MainActivity.this,
+                        menuItem.getTitle()+" "+menuItem.getOrder(), Toast.LENGTH_LONG).show();                return true;
             }
         });
 
@@ -82,11 +84,11 @@ public class MainActivity extends AppCompatActivity {
 
         devicesFragment = new DevicesFragment();
         actionsFragment = new ActionsFragment();
-        alertsFragment = new AlertsFragment();
+        //alertsFragment = new AlertsFragment();
 
         adapter.addFragment(devicesFragment, "Devices");
         adapter.addFragment(actionsFragment, "Actions");
-        adapter.addFragment(alertsFragment, "Alerts");
+        //adapter.addFragment(alertsFragment, "Alerts");
         mViewPager = (ViewPager)findViewById(R.id.viewpager);
         mViewPager.setAdapter(adapter);
         mTabLayout = (TabLayout)findViewById(R.id.tablayout);
@@ -108,9 +110,9 @@ public class MainActivity extends AppCompatActivity {
                         searchView.setQueryHint("Search Actions...");
                         break;
 
-                    case 2:
-                        searchView.setQueryHint("Search Alerts...");
-                        break;
+//                    case 2:
+//                        searchView.setQueryHint("Search Alerts...");
+//                        break;
                 }
             }
 

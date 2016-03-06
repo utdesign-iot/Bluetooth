@@ -1,4 +1,4 @@
-package com.example.todd.baseui;
+package fragments;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -10,6 +10,8 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.CheckBox;
 import android.widget.ListView;
+
+import com.utdesign.iot.baseui.R;
 
 import java.util.ArrayList;
 

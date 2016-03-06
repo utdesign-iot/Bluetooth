@@ -1,4 +1,4 @@
-package com.example.todd.baseui;
+package fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,8 +9,11 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.utdesign.iot.baseui.R;
+
 import java.util.ArrayList;
 
+import activities.BrowserActivity;
 import listadapters.DevicesAdapter;
 import listitems.Device;
 
