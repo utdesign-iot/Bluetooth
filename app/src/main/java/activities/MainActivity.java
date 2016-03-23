@@ -1,6 +1,10 @@
 package activities;
 
+import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothManager;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentManager;
 import android.os.Bundle;
@@ -26,6 +30,11 @@ import fragments.ActionsFragment;
 import fragments.DevicesFragment;
 import com.utdesign.iot.baseui.R;
 
+import org.physical_web.physicalweb.AboutFragment;
+import org.physical_web.physicalweb.NearbyBeaconsFragment;
+import org.physical_web.physicalweb.OobActivity;
+import org.physical_web.physicalweb.ScreenListenerService;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,6 +47,9 @@ public class MainActivity extends AppCompatActivity {
     private SearchView searchView;
     private DevicesFragment devicesFragment;
     private ActionsFragment actionsFragment;
+
+    private static final int REQUEST_ENABLE_BT = 0;
+    private static final String NEARBY_BEACONS_FRAGMENT_TAG = "NearbyBeaconsFragmentTag";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,11 +96,9 @@ public class MainActivity extends AppCompatActivity {
 
         devicesFragment = new DevicesFragment();
         actionsFragment = new ActionsFragment();
-        //alertsFragment = new AlertsFragment();
 
         adapter.addFragment(devicesFragment, "Devices");
         adapter.addFragment(actionsFragment, "Actions");
-        //adapter.addFragment(alertsFragment, "Alerts");
         mViewPager = (ViewPager)findViewById(R.id.viewpager);
         mViewPager.setAdapter(adapter);
         mTabLayout = (TabLayout)findViewById(R.id.tablayout);
@@ -109,10 +119,6 @@ public class MainActivity extends AppCompatActivity {
                     case 1:
                         searchView.setQueryHint("Search Actions...");
                         break;
-
-//                    case 2:
-//                        searchView.setQueryHint("Search Alerts...");
-//                        break;
                 }
             }
 
@@ -127,6 +133,13 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void ensureBluetoothIsEnabled(BluetoothAdapter bluetoothAdapter) {
+        if (!bluetoothAdapter.isEnabled()) {
+            Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+            startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
+        }
     }
 
     @Override
@@ -180,7 +193,6 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(MainActivity.this, item.getTitle(), Toast.LENGTH_LONG).show();
                 return true;
             case R.id.action_about:
-                //Toast.makeText(MainActivity.this, item.getTitle(), Toast.LENGTH_LONG).show();
                 startActivity(new Intent(this, AboutActivity.class));
                 return true;
         }
@@ -215,5 +227,72 @@ public class MainActivity extends AppCompatActivity {
         public CharSequence getPageTitle(int position) {
             return mFragmentTitleList.get(position);
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        BluetoothManager btManager = (BluetoothManager) getSystemService(BLUETOOTH_SERVICE);
+        BluetoothAdapter btAdapter = btManager != null ? btManager.getAdapter() : null;
+        if (btAdapter == null) {
+            Toast.makeText(getApplicationContext(),
+                    R.string.error_bluetooth_support, Toast.LENGTH_LONG).show();
+            finish();
+            return;
+        }
+        //if (checkIfUserHasOptedIn()) {
+            ensureBluetoothIsEnabled(btAdapter);
+            //showNearbyBeaconsFragment();
+            Intent intent = new Intent(this, ScreenListenerService.class);
+            startService(intent);
+        //} else {
+            // Show the oob activity
+            //Intent intent = new Intent(this, OobActivity.class);
+            //startActivity(intent);
+        //}
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        setIntent(intent);
+    }
+
+    private void showNearbyBeaconsFragment() {
+        // Look for an instance of the nearby beacons fragment
+        android.app.Fragment nearbyBeaconsFragment =
+                getFragmentManager().findFragmentByTag(NEARBY_BEACONS_FRAGMENT_TAG);
+        // If the fragment does not exist
+        if (nearbyBeaconsFragment == null) {
+            // Create the fragment
+            getFragmentManager().beginTransaction()
+                    .replace(R.id.main_activity_container, NearbyBeaconsFragment.newInstance(),
+                            NEARBY_BEACONS_FRAGMENT_TAG)
+                    .commit();
+            // If the fragment does exist
+        } else {
+            // If the fragment is not currently visible
+            if (!nearbyBeaconsFragment.isVisible()) {
+                // Assume another fragment is visible, so pop that fragment off the stack
+                getFragmentManager().popBackStack();
+            }
+        }
+    }
+
+    private void showAboutFragment() {
+        AboutFragment aboutFragment = AboutFragment.newInstance();
+        getFragmentManager().beginTransaction()
+                .setCustomAnimations(R.anim.fade_in_and_slide_up_fragment, R.anim.fade_out_fragment,
+                        R.anim.fade_in_activity, R.anim.fade_out_fragment)
+                .replace(R.id.main_activity_container, aboutFragment)
+                .addToBackStack(null)
+                .commit();
+    }
+
+    private boolean checkIfUserHasOptedIn() {
+        String preferencesKey = getString(R.string.main_prefs_key);
+        SharedPreferences sharedPreferences = getSharedPreferences(preferencesKey,
+                Context.MODE_PRIVATE);
+        return sharedPreferences.getBoolean(getString(R.string.user_opted_in_flag), false);
     }
 }
