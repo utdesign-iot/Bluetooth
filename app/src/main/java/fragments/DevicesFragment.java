@@ -23,12 +23,12 @@ public class DevicesFragment extends Fragment {
     DevicesAdapter devicesAdapter;
     String[] deviceNames = {
             "Humpus Wumpus",
-            "Cool Guy",
+            "Candy Man",
             "Radiated Guy",
             "Crome guy"};
     String[] descriptions = {
             "http://utdallas.edu",
-            "http://google.com",
+            "http://utdallas.edu/~txt103120/candy.html",
             "http://yahoo.com",
             "http://ecs.utdallas.edu"};
     int[] imageIds = {R.drawable.ie_icon,
