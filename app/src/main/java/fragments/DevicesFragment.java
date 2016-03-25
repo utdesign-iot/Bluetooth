@@ -71,7 +71,7 @@ public class DevicesFragment extends Fragment {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(getContext(), BrowserActivity.class);
+                Intent intent = new Intent(getActivity(), BrowserActivity.class);
                 intent.putExtra(URL, descriptions[position]);
                 startActivity(intent);
             }
