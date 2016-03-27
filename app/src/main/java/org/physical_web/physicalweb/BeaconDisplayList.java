@@ -16,6 +16,8 @@
 
 package org.physical_web.physicalweb;
 
+import android.nfc.Tag;
+
 import com.utdesign.iot.baseui.R;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -23,20 +25,20 @@ import java.util.List;
 import java.util.Map;
 import java.util.PriorityQueue;
 
-class BeaconDisplayList {
+public class BeaconDisplayList {
 
   /**
    * An entry in the beacon display list.
    */
-  private interface BeaconDisplayItem {
+  public interface BeaconDisplayItem {
     PwoMetadata top();
   }
 
   /**
    * Container for all metadata related to a particular physical web object (PWO) device.
    */
-  private class PwoDevice implements BeaconDisplayItem {
-    private PwoMetadata mPwoMetadata;
+  public class PwoDevice implements BeaconDisplayItem {
+    public PwoMetadata mPwoMetadata;
 
     PwoDevice() {
       mPwoMetadata = null;
@@ -64,8 +66,8 @@ class BeaconDisplayList {
   /**
    * Container for all PWOs in the same group.
    */
-  private class PwoGroup implements BeaconDisplayItem {
-    private HashMap<String, PwoDevice> mPwoDevices;
+  public class PwoGroup implements BeaconDisplayItem {
+    public HashMap<String, PwoDevice> mPwoDevices;
 
     PwoGroup() {
       mPwoDevices = new HashMap<>();
@@ -136,7 +138,7 @@ class BeaconDisplayList {
     }
   }
 
-  private List<BeaconDisplayItem> mDisplayList;
+  public List<BeaconDisplayItem> mDisplayList;
   private HashMap<String, PwoGroup> mPwoGroups;
   private HashMap<String, PwoDevice> mUngroupedPwoDevices;
 
@@ -284,7 +286,7 @@ class BeaconDisplayList {
     mDisplayList.add(pwoGroup);
   }
 
-  private static String getPwoId(PwoMetadata pwoMetadata) {
+  public static String getPwoId(PwoMetadata pwoMetadata) {
     // Prefer an id that uniquely identifies the device, but use URL as a fallback for PWOs
     // that do not have BLE metadata or otherwise don't support a unique device id.
     String deviceAddress = pwoMetadata.getDeviceAddress();

@@ -20,6 +20,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -28,10 +29,17 @@ import android.widget.Toast;
 
 import fragments.ActionsFragment;
 import fragments.DevicesFragment;
+import listadapters.DevicesAdapter;
+import listitems.Device;
+
 import com.utdesign.iot.baseui.R;
 
 import org.physical_web.physicalweb.AboutFragment;
 import org.physical_web.physicalweb.NearbyBeaconsFragment;
+import org.physical_web.physicalweb.NearbyBeaconsFragment.NearbyBeaconsAdapter;
+import org.physical_web.physicalweb.BeaconDisplayList;
+import org.physical_web.physicalweb.BeaconDisplayList.BeaconDisplayItem;
+import org.physical_web.physicalweb.PwoMetadata;
 import org.physical_web.physicalweb.OobActivity;
 import org.physical_web.physicalweb.ScreenListenerService;
 
@@ -47,6 +55,9 @@ public class MainActivity extends AppCompatActivity {
     private SearchView searchView;
     private DevicesFragment devicesFragment;
     private ActionsFragment actionsFragment;
+    public NearbyBeaconsFragment nearbyBeaconsFragment;
+    public NearbyBeaconsAdapter nearbyAdapter;
+    public BeaconDisplayList nearbyList;
 
     private static final int REQUEST_ENABLE_BT = 0;
     private static final String NEARBY_BEACONS_FRAGMENT_TAG = "NearbyBeaconsFragmentTag";
@@ -73,9 +84,12 @@ public class MainActivity extends AppCompatActivity {
                 mDrawerLayout.closeDrawers();
                 if (menuItem.getOrder() == 1) {
                     mToolbar.setTitle(menuItem.getTitle());
-                } else { mToolbar.setTitle(getTitle()); }
+                } else {
+                    mToolbar.setTitle(getTitle());
+                }
                 Toast.makeText(MainActivity.this,
-                        menuItem.getTitle()+" "+menuItem.getOrder(), Toast.LENGTH_LONG).show();                return true;
+                        menuItem.getTitle() + " " + menuItem.getOrder(), Toast.LENGTH_LONG).show();
+                return true;
             }
         });
 
@@ -96,6 +110,15 @@ public class MainActivity extends AppCompatActivity {
 
         devicesFragment = new DevicesFragment();
         actionsFragment = new ActionsFragment();
+
+        getFragmentManager().beginTransaction()
+                .add(NearbyBeaconsFragment.newInstance(), NEARBY_BEACONS_FRAGMENT_TAG)
+                .commit();
+        getFragmentManager().executePendingTransactions();
+        nearbyBeaconsFragment = ((NearbyBeaconsFragment) getFragmentManager().findFragmentByTag(NEARBY_BEACONS_FRAGMENT_TAG));
+        nearbyAdapter = nearbyBeaconsFragment.getAdapter();
+        //devicesFragment.setAdapter(nearbyAdapter);
+        //nearbyList = nearbyAdapter.getList();
 
         adapter.addFragment(devicesFragment, "Devices");
         adapter.addFragment(actionsFragment, "Actions");
@@ -243,8 +266,23 @@ public class MainActivity extends AppCompatActivity {
         //if (checkIfUserHasOptedIn()) {
             ensureBluetoothIsEnabled(btAdapter);
             //showNearbyBeaconsFragment();
+//            getFragmentManager().beginTransaction()
+//                    .add(NearbyBeaconsFragment.newInstance(), NEARBY_BEACONS_FRAGMENT_TAG)
+//                    .commit();
+//            getFragmentManager().executePendingTransactions();
+//            nearbyBeaconsFragment = ((NearbyBeaconsFragment) getFragmentManager().findFragmentByTag(NEARBY_BEACONS_FRAGMENT_TAG));
+            //nearbyAdapter = nearbyBeaconsFragment.getAdapter();
+            //nearbyList = nearbyAdapter.getList();
+            devicesFragment.setAdapter(nearbyAdapter);
+            //PwoMetadata nearbyItem = nearbyList.getItem(0);
+            //Log.d("Nearby List Url:", nearbyItem.getUrl());
+            //DevicesAdapter devicesAdapter = devicesFragment.devicesAdapter;
+            //ArrayList<Device> devices = devicesFragment.devices;
+            //devicesFragment.devices.clear();
+            //devicesFragment.devices.add(new Device("Device 0", 0, "http://utdallas.edu/~txt103120"));
             Intent intent = new Intent(this, ScreenListenerService.class);
             startService(intent);
+            //devicesFragment.devices.add(new Device("Device 1", 1, nearbyList.getItem(0).getUrl()));
         //} else {
             // Show the oob activity
             //Intent intent = new Intent(this, OobActivity.class);

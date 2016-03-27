@@ -39,19 +39,23 @@ import java.io.ByteArrayOutputStream;
  *
  * A physical web object is any source of a broadcasted url.
  */
-class PwoMetadata implements Comparable<PwoMetadata> {
+public class PwoMetadata implements Comparable<PwoMetadata> {
   private static final String URL_KEY = "deviceAddress";
   private static final String IS_PUBLIC_KEY = "isPublic";
   private static final String SCAN_MILLIS_KEY = "scanMillis";
   private static final String PWS_TRIP_MILLIS_KEY = "pwsTripMillis";
   private static final String BLE_METADATA_KEY = "bleMetadata";
   private static final String URL_METADATA_KEY = "urlMetadata";
-  String url;
+  public String url;
   boolean isPublic;
   long scanMillis;
   long pwsTripMillis;
   BleMetadata bleMetadata;
   UrlMetadata urlMetadata;
+
+  public String getUrl() {
+    return this.url;
+  }
 
   /**
    * A container class for ble-specific metadata.

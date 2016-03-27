@@ -24,6 +24,7 @@ import android.animation.Animator;
 import android.animation.Animator.AnimatorListener;
 import android.animation.ObjectAnimator;
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.ListFragment;
 import android.content.ComponentName;
 import android.content.Context;
@@ -75,7 +76,7 @@ public class NearbyBeaconsFragment extends ListFragment
   private TextView mScanningAnimationTextView;
   private AnimationDrawable mScanningAnimationDrawable;
   private Handler mHandler;
-  private NearbyBeaconsAdapter mNearbyDeviceAdapter;
+  public NearbyBeaconsAdapter mNearbyDeviceAdapter;
   private SwipeRefreshWidget mSwipeRefreshWidget;
   private boolean mDebugViewEnabled = false;
   private boolean mSecondScanComplete;
@@ -193,10 +194,10 @@ public class NearbyBeaconsFragment extends ListFragment
 
     mSwipeRefreshWidget = (SwipeRefreshWidget) rootView.findViewById(R.id.swipe_refresh_widget);
     mSwipeRefreshWidget.setColorSchemeResources(R.color.swipe_refresh_widget_first_color,
-                                                R.color.swipe_refresh_widget_second_color);
+            R.color.swipe_refresh_widget_second_color);
     mSwipeRefreshWidget.setOnRefreshListener(this);
 
-    getActivity().getActionBar().setTitle(R.string.title_nearby_beacons);
+    //getActivity().getActionBar().setTitle(R.string.title_nearby_beacons);
     mNearbyDeviceAdapter = new NearbyBeaconsAdapter();
     setListAdapter(mNearbyDeviceAdapter);
     //Get the top drawable
@@ -215,10 +216,15 @@ public class NearbyBeaconsFragment extends ListFragment
   }
 
   @Override
+  public void onAttach(Activity activity) {
+      super.onAttach(activity);
+  }
+
+  @Override
   public void onResume() {
     super.onResume();
-    getActivity().getActionBar().setTitle(R.string.title_nearby_beacons);
-    getActivity().getActionBar().setDisplayHomeAsUpEnabled(false);
+    //getActivity().getActionBar().setTitle(R.string.title_nearby_beacons);
+    //getActivity().getActionBar().setDisplayHomeAsUpEnabled(false);
     getListView().setVisibility(View.INVISIBLE);
     mDiscoveryServiceConnection.connect(true);
   }
@@ -232,8 +238,8 @@ public class NearbyBeaconsFragment extends ListFragment
   @Override
   public void onPrepareOptionsMenu(Menu menu) {
     super.onPrepareOptionsMenu(menu);
-    menu.findItem(R.id.action_config).setVisible(true);
-    menu.findItem(R.id.action_about).setVisible(true);
+    //menu.findItem(R.id.action_config).setVisible(true);
+    //menu.findItem(R.id.action_about).setVisible(true);
   }
 
   @Override
@@ -351,20 +357,23 @@ public class NearbyBeaconsFragment extends ListFragment
     alphaAnimation.setDuration(400);
     alphaAnimation.setInterpolator(new DecelerateInterpolator());
     alphaAnimation.addListener(new AnimatorListener() {
-      @Override
-      public void onAnimationStart(Animator animation) {
-      }
-      @Override
-      public void onAnimationEnd(Animator animation) {
-        mScanningAnimationTextView.setAlpha(0f);
-        mScanningAnimationDrawable.stop();
-      }
-      @Override
-      public void onAnimationRepeat(Animator animation) {
-      }
-      @Override
-      public void onAnimationCancel(Animator animation) {
-      }
+        @Override
+        public void onAnimationStart(Animator animation) {
+        }
+
+        @Override
+        public void onAnimationEnd(Animator animation) {
+            mScanningAnimationTextView.setAlpha(0f);
+            mScanningAnimationDrawable.stop();
+        }
+
+        @Override
+        public void onAnimationRepeat(Animator animation) {
+        }
+
+        @Override
+        public void onAnimationCancel(Animator animation) {
+        }
     });
     alphaAnimation.start();
   }
@@ -381,16 +390,21 @@ public class NearbyBeaconsFragment extends ListFragment
     }
   }
 
+  public NearbyBeaconsAdapter getAdapter() {
+    return mNearbyDeviceAdapter;
+  }
+
   // Adapter for holding beacons found through scanning.
-  private class NearbyBeaconsAdapter extends BaseAdapter {
-    private BeaconDisplayList mBeaconDisplayList;
+  public class NearbyBeaconsAdapter extends BaseAdapter {
+    public BeaconDisplayList mBeaconDisplayList;
 
     NearbyBeaconsAdapter() {
       mBeaconDisplayList = new BeaconDisplayList();
     }
 
     public void addItem(PwoMetadata pwoMetadata) {
-      mBeaconDisplayList.addItem(pwoMetadata);
+        mBeaconDisplayList.addItem(pwoMetadata);
+        Log.d(TAG, pwoMetadata.getUrl());
     }
 
     @Override
@@ -432,6 +446,7 @@ public class NearbyBeaconsFragment extends ListFragment
         titleTextView.setText(urlMetadata.title);
         // Set the url text
         urlTextView.setText(urlMetadata.displayUrl);
+        Log.d(TAG, urlMetadata.displayUrl);
         // Set the description text
         descriptionTextView.setText(urlMetadata.description);
         // Set the favicon image
@@ -531,6 +546,10 @@ public class NearbyBeaconsFragment extends ListFragment
     public void clear() {
       mBeaconDisplayList.clear();
       notifyDataSetChanged();
+    }
+
+    public BeaconDisplayList getList() {
+      return mBeaconDisplayList;
     }
   }
 }

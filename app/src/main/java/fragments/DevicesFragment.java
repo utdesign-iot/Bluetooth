@@ -11,6 +11,8 @@ import android.widget.ListView;
 
 import com.utdesign.iot.baseui.R;
 
+import org.physical_web.physicalweb.NearbyBeaconsFragment;
+
 import java.util.ArrayList;
 
 import activities.BrowserActivity;
@@ -20,7 +22,8 @@ import listitems.Device;
 public class DevicesFragment extends Fragment {
     public final static String URL = "http://ecs.utdallas.edu";
     ListView listView;
-    DevicesAdapter devicesAdapter;
+    public NearbyBeaconsFragment.NearbyBeaconsAdapter adapter;
+    public DevicesAdapter devicesAdapter;
     String[] deviceNames = {
             "Humpus Wumpus",
             "Candy Man",
@@ -28,7 +31,7 @@ public class DevicesFragment extends Fragment {
             "Crome guy"};
     String[] descriptions = {
             "http://utdallas.edu",
-            "http://utdallas.edu/~txt103120/candy.html",
+            "http://google.com",
             "http://yahoo.com",
             "http://ecs.utdallas.edu"};
     int[] imageIds = {R.drawable.ie_icon,
@@ -36,7 +39,7 @@ public class DevicesFragment extends Fragment {
             R.drawable.rad_icon,
             R.drawable.chrome_icon};
 
-    ArrayList<Device> devices;
+    public ArrayList<Device> devices;
 
     public DevicesFragment() {
         devices = new ArrayList<>(deviceNames.length);
@@ -44,6 +47,10 @@ public class DevicesFragment extends Fragment {
             devices.add(new Device(deviceNames[i], imageIds[i], descriptions[i]));
         }
 
+    }
+
+    public void setAdapter(NearbyBeaconsFragment.NearbyBeaconsAdapter adapter) {
+        this.adapter = adapter;
     }
 
     public DevicesAdapter getDevicesAdapter() {
@@ -66,8 +73,9 @@ public class DevicesFragment extends Fragment {
                 container, false);
         listView = (ListView) rootView.findViewById(R.id.list);
 
-        devicesAdapter = getDevicesAdapter();
-        listView.setAdapter(devicesAdapter);
+        //devicesAdapter = getDevicesAdapter();
+        //listView.setAdapter(devicesAdapter);
+        listView.setAdapter(adapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
