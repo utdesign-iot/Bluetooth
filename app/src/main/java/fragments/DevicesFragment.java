@@ -80,7 +80,8 @@ public class DevicesFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(getActivity(), BrowserActivity.class);
-                intent.putExtra(URL, descriptions[position]);
+                //intent.putExtra(URL, descriptions[position]);
+                intent.putExtra(URL, adapter.getList().getItem(position).getUrl());
                 startActivity(intent);
             }
         });
