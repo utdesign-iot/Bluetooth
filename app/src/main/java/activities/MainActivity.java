@@ -111,12 +111,12 @@ public class MainActivity extends AppCompatActivity {
         devicesFragment = new DevicesFragment();
         actionsFragment = new ActionsFragment();
 
-        getFragmentManager().beginTransaction()
-                .add(NearbyBeaconsFragment.newInstance(), NEARBY_BEACONS_FRAGMENT_TAG)
-                .commit();
-        getFragmentManager().executePendingTransactions();
-        nearbyBeaconsFragment = ((NearbyBeaconsFragment) getFragmentManager().findFragmentByTag(NEARBY_BEACONS_FRAGMENT_TAG));
-        nearbyAdapter = nearbyBeaconsFragment.getAdapter();
+//        getFragmentManager().beginTransaction()
+//                .add(NearbyBeaconsFragment.newInstance(), NEARBY_BEACONS_FRAGMENT_TAG)
+//                .commit();
+//        getFragmentManager().executePendingTransactions();
+//        nearbyBeaconsFragment = ((NearbyBeaconsFragment) getFragmentManager().findFragmentByTag(NEARBY_BEACONS_FRAGMENT_TAG));
+//        nearbyAdapter = nearbyBeaconsFragment.getAdapter();
         //devicesFragment.setAdapter(nearbyAdapter);
         //nearbyList = nearbyAdapter.getList();
 
@@ -266,14 +266,15 @@ public class MainActivity extends AppCompatActivity {
         //if (checkIfUserHasOptedIn()) {
             ensureBluetoothIsEnabled(btAdapter);
             //showNearbyBeaconsFragment();
-//            getFragmentManager().beginTransaction()
-//                    .add(NearbyBeaconsFragment.newInstance(), NEARBY_BEACONS_FRAGMENT_TAG)
-//                    .commit();
-//            getFragmentManager().executePendingTransactions();
-//            nearbyBeaconsFragment = ((NearbyBeaconsFragment) getFragmentManager().findFragmentByTag(NEARBY_BEACONS_FRAGMENT_TAG));
-            //nearbyAdapter = nearbyBeaconsFragment.getAdapter();
-            //nearbyList = nearbyAdapter.getList();
+            getFragmentManager().beginTransaction()
+                    .add(NearbyBeaconsFragment.newInstance(), NEARBY_BEACONS_FRAGMENT_TAG)
+                    .commit();
+            getFragmentManager().executePendingTransactions();
+            nearbyBeaconsFragment = ((NearbyBeaconsFragment) getFragmentManager().findFragmentByTag(NEARBY_BEACONS_FRAGMENT_TAG));
+            nearbyAdapter = nearbyBeaconsFragment.getAdapter();
+            nearbyList = nearbyAdapter.getList();
             devicesFragment.setAdapter(nearbyAdapter);
+            nearbyAdapter.notifyDataSetChanged();
             //PwoMetadata nearbyItem = nearbyList.getItem(0);
             //Log.d("Nearby List Url:", nearbyItem.getUrl());
             //DevicesAdapter devicesAdapter = devicesFragment.devicesAdapter;
