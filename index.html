@@ -1,26 +1,26 @@
+<!-- morphing_dentist -->
+
+
+<!-- Replace your-device-ID-goes-here with your actual device ID
+and replace your-access-token-goes-here with your actual access token-->
+
+<!DOCTYPE>
 <html>
-  <head>
-    <title>Sample "Hello, World" Application</title>
-  </head>
-  <body bgcolor=white>
-
-    <table border="0" cellpadding="10">
-      <tr>
-        <td>
-          <img src="images/springsource.png">
-        </td>
-        <td>
-          <h1>Sample "Hello, World" Application</h1>
-        </td>
-      </tr>
-    </table>
-
-    <p>This is the home page for the HelloWorld Web application. </p>
-    <p>To prove that they work, you can execute either of the following links:
-    <ul>
-      <li>To a <a href="hello.jsp">JSP page</a>.
-      <li>To a <a href="hello">servlet</a>.
-    </ul>
-
+  <body>
+  <center>
+  	<br>
+  	<br>
+  <br>
+  <form action="https://api.particle.io/v1/devices/400023001747343338333633/giveCandy?access_token=9641cd0e6239dc7cbedca992efc6c23f0ec36858" method="POST">
+    Tell your device what to do!<br>
+    <br>
+    <input type="radio" name="args" value=give">Turn the LED on.
+    <br>
+    <input type="radio" name="args" value="give">Turn the LED off.
+    <br>
+    <br>
+    <input type="submit" value="Do it!">
+  </form>
+  </center>
   </body>
 </html>
