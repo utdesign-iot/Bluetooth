@@ -39,7 +39,7 @@
                     android:orderInCategory="1"
                     android:icon="@drawable/ic_home"
                     android:title="Home" />
-                <item
+                <!--<item
                     android:orderInCategory="1"
                     android:icon="@drawable/ic_place"
                     android:title="Location 1" />
@@ -78,7 +78,7 @@
                 <item
                     android:orderInCategory="1"
                     android:icon="@drawable/ic_place"
-                    android:title="Location 10" />
+                    android:title="Location 10" />-->
             </menu>
         </item>
     </group>

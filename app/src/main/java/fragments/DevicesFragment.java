@@ -71,8 +71,10 @@ public class DevicesFragment extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.devices_tab,
                 container, false);
-        listView = (ListView) rootView.findViewById(R.id.list);
 
+
+
+        listView = (ListView) rootView.findViewById(android.R.id.list);
         //devicesAdapter = getDevicesAdapter();
         //listView.setAdapter(devicesAdapter);
         listView.setAdapter(adapter);
